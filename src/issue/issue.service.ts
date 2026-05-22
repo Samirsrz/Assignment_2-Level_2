@@ -15,4 +15,14 @@ const createIssueIntoDB =async(payLoad:{title:string,description:string,type:str
  
 }
 
-export const issueService = {createIssueIntoDB}
+
+
+const getAllIssueFromDB = async()=>{
+      const result = await pool.query(`
+         SELECT * FROM issues
+         `)
+         return result;
+}
+
+
+export const issueService = {createIssueIntoDB,getAllIssueFromDB}

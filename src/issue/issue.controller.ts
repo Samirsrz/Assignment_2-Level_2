@@ -26,4 +26,26 @@ try {
 }
 
 
-export const issueController = {createIssue}
+
+const getAllIssue=async(req:Request,res:Response)=>{
+
+    try{
+   const result = await issueService.getAllIssueFromDB()
+       res.status(200).json({
+        success:true,
+        message:"All users retrieved successfully",
+        data:result.rows   
+    })
+ }catch (error:any) {
+        res.status(500).json({          
+         message: error.message,
+        error:error,     
+        })                         
+    }
+
+}
+
+
+
+
+export const issueController = {createIssue,getAllIssue}
