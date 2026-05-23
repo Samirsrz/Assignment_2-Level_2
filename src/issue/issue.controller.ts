@@ -113,9 +113,7 @@ const updateIssue = async (req: Request, res: Response) => {
                 return
             }
         }
-
-    
-        const updated = await issueService.updateIssueInDB(id as string, { title, description, type })
+            const updated = await issueService.updateIssueInDB(id as string, { title, description, type })
 
         res.status(200).json({
             success: true,
@@ -133,11 +131,16 @@ const updateIssue = async (req: Request, res: Response) => {
 
 
 
+const deleteIssue = (req: Request, res: Response) => {
+
+  
+
+
+}
 
 
 
 
 
 
-
-export const issueController = {createIssue,getAllIssue,getSingleIssue}
+export const issueController = {createIssue,getAllIssue,getSingleIssue, updateIssue,deleteIssue}
