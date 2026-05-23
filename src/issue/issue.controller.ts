@@ -29,23 +29,63 @@ try {
 
 const getAllIssue=async(req:Request,res:Response)=>{
 
-    try{
-   const result = await issueService.getAllIssueFromDB()
-       res.status(200).json({
-        success:true,
-        message:"All users retrieved successfully",
-        data:result.rows   
-    })
- }catch (error:any) {
-        res.status(500).json({          
-         message: error.message,
-        error:error,     
-        })                         
+
+ try {
+        const { sort, type, status } = req.query
+
+        const result = await issueService.getAllIssueFromDB(
+            sort as string,
+            type as string,
+            status as string
+        )
+
+        res.status(200).json({
+            success: true,
+            data: result
+        })
+
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error: error
+        })
     }
+
+}
+
+
+const getSingleIssue = async(req:Request,res:Response)=>{
+    const {id} = req.params;
+    // console.log(id);
+
+    try {
+      const issue = await issueService.getIssueByIdFromDB(id as string)
+        
+        if (!issue) {
+            res.status(404).json({
+                success: false,
+                message: "Issue not found"
+            })
+            return
+        }
+
+        res.status(200).json({
+            success: true,
+            data: issue
+        })
+
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+    
 
 }
 
 
 
 
-export const issueController = {createIssue,getAllIssue}
+export const issueController = {createIssue,getAllIssue,getSingleIssue}
