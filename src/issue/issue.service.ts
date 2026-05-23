@@ -128,6 +128,16 @@ const updateIssueInDB = async (id:string, payLoad:{
 
 
 
+const deletIssueFromDB = async(id:string)=>{
+     const result = await pool.query(`
+        
+         Delete from issues where id=$1
+         `,[id])
 
+         return result 
 
-export const issueService = {createIssueIntoDB,getAllIssueFromDB,getIssueByIdFromDB, updateIssueInDB}
+        }
+
+        
+
+export const issueService = {createIssueIntoDB,getAllIssueFromDB,getIssueByIdFromDB, updateIssueInDB, deletIssueFromDB}

@@ -40,17 +40,10 @@ const auth=(...roles:ROLES[])=>{
         success:false,
         message:"Forbidden"
     })
-     
+       return
   }
-
-
-
-
      req.user =decoded
-
           next()
-        
-          
 
        } catch (error) {
           next(error)
