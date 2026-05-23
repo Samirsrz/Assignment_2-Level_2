@@ -86,6 +86,58 @@ const getSingleIssue = async(req:Request,res:Response)=>{
 }
 
 
+const updateIssue = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        const { title, description, type } = req.body
+        const currentUser = req.user
+
+        const issue = await issueService.getIssueByIdFromDB(id as string)
+
+
+        if (!issue) {
+            res.status(404).json({
+                success: false,
+                message: "Issue not found"
+            })
+            return
+        }
+
+        if (currentUser?.role === 'contributor') {
+
+            if (currentUser.id !== issue.reporter.id) {
+                res.status(403).json({
+                    success: false,
+                    message: "Forbidden — you can only update your own issues"
+                })
+                return
+            }
+        }
+
+    
+        const updated = await issueService.updateIssueInDB(id as string, { title, description, type })
+
+        res.status(200).json({
+            success: true,
+            message: "Issue updated succesfully",
+            data: updated
+        })
+
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+
+
+
+
 
 
 export const issueController = {createIssue,getAllIssue,getSingleIssue}

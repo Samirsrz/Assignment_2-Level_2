@@ -103,6 +103,31 @@ const getIssueByIdFromDB = async (id: string) => {
 
 
 
+const updateIssueInDB = async (id:string, payLoad:{
+    title?:string,
+    description?:string,
+    type?:string
+})=>{
+
+    const {title,description,type} = payLoad
+
+    const result = await pool.query(`
+        UPDATE issues SET
+            title       = COALESCE($1, title),
+            description = COALESCE($2, description),
+            type        = COALESCE($3, type),
+            updated_at  = NOW()
+        WHERE id = $4
+        RETURNING *
+    `, [title, description, type, id])
+   
+
+    return result.rows[0]
+
+}
 
 
-export const issueService = {createIssueIntoDB,getAllIssueFromDB,getIssueByIdFromDB}
+
+
+
+export const issueService = {createIssueIntoDB,getAllIssueFromDB,getIssueByIdFromDB, updateIssueInDB}
