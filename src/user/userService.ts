@@ -27,9 +27,6 @@ const getAllUsersFromDb=async()=>{
 
  return result
 }
-
-
-
 const loginUserFromDb=async(payLoad: 
     {email:string, password:string} )=>{
    
@@ -72,10 +69,6 @@ const loginUserFromDb=async(payLoad:
     },}
 
 }   
-
-
-
-
 export const userService={
     createUserIntoDb,getAllUsersFromDb,loginUserFromDb
 }

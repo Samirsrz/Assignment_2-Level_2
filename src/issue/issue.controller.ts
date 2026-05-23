@@ -164,8 +164,4 @@ const deleteIssue = async(req: Request, res: Response) => {
 }
 
 
-
-
-
-
 export const issueController = {createIssue,getAllIssue,getSingleIssue, updateIssue,deleteIssue}

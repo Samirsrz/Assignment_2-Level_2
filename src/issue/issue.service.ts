@@ -16,14 +16,6 @@ const createIssueIntoDB =async(payLoad:{title:string,description:string,type:str
 }
 
 
-
-// const getAllIssueFromDB = async()=>{
-//       const result = await pool.query(`
-//          SELECT * FROM issues
-//          `)
-//          return result;
-// }
-
 const getAllIssueFromDB = async (sort?: string, type?: string, status?: string) => {
 
     const result = await pool.query(`SELECT * FROM issues`)
@@ -138,6 +130,6 @@ const deletIssueFromDB = async(id:string)=>{
 
         }
 
-        
+
 
 export const issueService = {createIssueIntoDB,getAllIssueFromDB,getIssueByIdFromDB, updateIssueInDB, deletIssueFromDB}
